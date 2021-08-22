@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan</title>
+    <link rel="icon" type="image/jpg" href="{{ url_for('static', filename='images/picklogo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="bodyindex">
+
+    <nav class="navbar" >
+        <img id="logo" src="{{ url_for('static', filename='images/piverlogo.png') }}">
+        <h1 class="title">Picket</h1>
+            <ul>
+                <li><a href="{{ url_for('index')}}" class="button" >Home</a></li>
+                <li class="active"><a href="{{ url_for('scan')}}" class="active">Scan</a></li>
+            </ul>
+        </nav>
+   <!--- <nav class="navbar">
+        <a href="{{ url_for('index')}}"><img id="logo" src="{{ url_for('static', filename='images/piverlogo.png') }}"></a>
+        <h1 class="title">Picket</h1>
+
+        <ul>
+            <li><a href="{{ url_for('index')}}" class="button">Home</a></li>
+            <li class="active"><a href="{{ url_for('scan')}}" class="active">Scan</a></li>
+        </ul>
+    </nav>-->
+
+    <div class="part1">
+        <h1 class="scantitle2">Scan</h1>
+        <div class="scantext">Upload a picture of a piece of trash. Our AI will scan the picture and determine one of
+            six categories to place it in: e-waste, glass, metal, paper, plastic, or organic.</div>
+        <form method="POST" action="/upload" class="form" enctype="multipart/form-data">
+            <div class="btns">
+                <input  type="file" name="file" id="filebutton" class="img-input" accept=".png,.jpeg,.jpg">
+                <button type="submit" class="scan-btn" id="scanbutton">Scan</button>
+            </div>
+            
+        </form>
+        {% if prediction %}
+            {% if "E-Waste" in prediction %}
+                <img class="prediction-img" src="{{ url_for('static', filename='images/ewaste-bin.png') }}">
+            {% elif prediction == "Glass" %}
+                <img class="prediction-img" src="{{ url_for('static', filename='images/glass-bin.png') }}">
+            {% elif "Metal" in prediction %}
+                <img class="prediction-img" src="{{ url_for('static', filename='images/metal-bin.png') }}">
+            {% elif "Paper" in prediction %}
+                <img class="prediction-img" src="{{ url_for('static', filename='images/paper-bin.png') }}">
+            {% elif "Plastic" in prediction %}
+                <img class="prediction-img" src="{{ url_for('static', filename='images/plastic-bin.png') }}">
+            {% elif "Organic" in prediction %}
+                <img class="prediction-img" src="{{ url_for('static', filename='images/organic-bin.png') }}">
+            {% elif "Glass" in prediction %}
+                <img class="prediction-img" src="{{ url_for('static', filename='images/glass-bin.png') }}">
+            {% endif %}
+        <h2 id="scanimg" class="prediction-text">{{ prediction }}</h2>
+        {% else %}
+        <img id="scanimg" src="{{ url_for('static', filename='images/scanphoto.png') }}">
+        {% endif %}
+    </div>
+
+</body>
