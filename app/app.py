@@ -71,11 +71,9 @@ def upload():
         # Perform label detection on the image file
         response = client.label_detection(image=image)
         labels = response.label_annotations
-        labels_list = []
-
+        
         # create a list of labels for the image uploaded
-        for label in labels:
-            labels_list.append(label.description)
+        labels_list = [label.description for label in labels]
 
         # if the label is in the list of labels we are looking for, return the prediction of the bin
         for label in labels_list:
