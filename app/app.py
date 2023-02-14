@@ -64,10 +64,6 @@ def upload():
         # create an image instance using the processed image file
         image = vision.Image(content=content)
 
-        # define the labels we are looking for
-        classes = ["cardboard", "glass",
-                   "metal", "paper", "plastic", "trash"]
-
         # Perform label detection on the image file
         response = client.label_detection(image=image)
         labels = response.label_annotations
