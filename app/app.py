@@ -49,16 +49,16 @@ def upload():
         client = vision.ImageAnnotatorClient()
 
         # ensures file is secure, not malicious
-        filename = secure_filename(file.filename)  
+        file = secure_filename(file.filename)  
 
         # save the file to the uploads folder
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file))
 
         # access the file
-        file_name = os.path.abspath(UPLOAD_FOLDER + '/' + filename)
+        file = os.path.abspath(UPLOAD_FOLDER + '/' + file)
 
         # load the image into memory
-        with io.open(file_name, 'rb') as image_file:
+        with io.open(file, 'rb') as image_file:
             content = image_file.read()  # read/process the image file
 
         # create an image instance using the processed image file
