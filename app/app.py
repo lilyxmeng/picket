@@ -48,7 +48,7 @@ def upload():
         # instantiates a client for the vision API
         client = vision.ImageAnnotatorClient()
 
-        filename = secure_filename(file.filename)
+        filename = secure_filename(file.filename)  # ensures file is secure, not malicious
 
         # save the file to the uploads folder
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
